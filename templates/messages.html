@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+<!--static-->
+{% load static %}
+{% load humanize %}
+<!--content-->
+{% block content %}
+<a href="{% url 'home' %}" class="btn btn-primary btn-rounded">&larr;</a>
+<a href="">
+	<br>
+	<br>
+	<h2 class="text-center text-dark">
+		{{ user_object.get_full_name }}
+		<br>
+	</h2>
+	<h6 class="text-center text-dark"> +91 {{ profiles.phone }}</h6>
+</a>
+<div class="chat-box scrollable" style="height:calc(80vh - 200px);" id="message-wrapper">
+	<!--chat Row -->
+	<ul class="chat-list" id="chat-body">
+		{% for message in messages %}
+		{% if message.sender == request.user %}
+		<!--chat Row -->
+		<li class="odd chat-item">
+			<div class="chat-content">
+				<div class="box bg-light-success">
+					<h5 class="font-medium">Me</h5>
+					<p class="font-light mb-0">
+						<pre>{{ message.message }}</pre>
+					</p>
+					<div class="chat-time">{{ message.timestamp|naturaltime }}</div>
+				</div>
+			</div>
+			<div class="chat-img"><img src="{% static 'assets/images/users/1.jpg' %}" alt="user"></div>
+		</li>
+		{% else %}
+		<li class="chat-item">
+			<div class="chat-img"><img src="{% static 'assets/images/users/2.jpg' %}" alt="user"></div>
+			<div class="chat-content">
+				<div class="box bg-light-success">
+					<h5 class="font-medium">{{ message.sender.username }}</h5>
+					<p class="font-light mb-0">
+						<pre>{{ message.message }}</pre>
+					</p>
+					<div class="chat-time">{{ message.timestamp|naturaltime }}</div>
+				</div>
+			</div>
+		</li>
+		{% endif %}
+		{% endfor %}
+		<div id="divine"></div>
+	</ul>
+</div>
+<div class="card-body border-top">
+	<form action="" method="post">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-9">
+				<div class="input-field mt-0 mb-0">
+					<textarea name="text_content" id="message-body" placeholder="Type and enter"
+					class="form-control border-0" required></textarea>
+				</div>
+			</div>
+			<div class="col-3">
+				<a href="#divine"><button class="btn-circle btn-lg btn-cyan float-right text-white" type="submit" id="send-message-btn" title="Send"><i class="fas fa-paper-plane"></i></button></a>
+			</div>
+		</div>
+	</form>
+</div>
+{% if user_object %}
+<!--other-user-id-->
+{{user_object.id|json_script:'other-user-id'}}
+<!--current-username-->
+{{request.user.username|json_script:'current-username'}}
+<!---->
+{% endif %}
+{% endblock content %}

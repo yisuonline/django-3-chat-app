@@ -1,0 +1,30 @@
+<h1>Signup Page</h1>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <input type="text" placeholder="Username" name="username">
+    </div>
+    <br>
+    <div>
+        <input type="password" placeholder="Password" name="password1">
+    </div>
+    <br>
+    <div>
+        <input type="password" placeholder="Confirm Password" name="password2">
+    </div>
+    {% for message in messages %}
+        <p id="message">{{message}}</p>
+    {% endfor %}
+    <br>
+    <div>
+        <div>
+            <button type="submit">Sign Up</button>
+        </div>
+    </div>
+    <div>
+        <div>
+            Already have an account? <a href="{% url 'login' %}"><b>Login</b></a>
+        </div>
+    </div>
+
+</form>
