@@ -16,6 +16,7 @@
 </a>
 <div class="chat-box scrollable" style="height:calc(80vh - 200px);" id="message-wrapper">
 	<!--chat Row -->
+	
 	<ul class="chat-list" id="chat-body">
 		{% for message in messages %}
 		{% if message.sender == request.user %}

@@ -11,7 +11,7 @@
           {% for user in users %}
           <ul class="list-style-none chat-list">
               <li class="mb-3">
-                  <a href="{% url 'chat_page' user.username %}#divine">
+                  <a href="{% url 'chat_page' user.username %}">
                       <div class="d-flex align-items-center">
                           <img src="static/assets/images/users/{{forloop.counter}}.jpg" class="rounded-circle" width="70" height="70">
                           <div class="ml-3">
